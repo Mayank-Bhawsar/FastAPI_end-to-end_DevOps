@@ -32,7 +32,7 @@ resource "aws_db_instance" "postgres" {
   engine_version = "16.1"
   instance_class = "db.t4g.micro"
 
-  db_name = local.db_creds.dbname
+  db_name = "fastapidb"
   username = local.db_creds.username
   password = local.db_creds.password
 
