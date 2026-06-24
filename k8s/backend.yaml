@@ -24,8 +24,20 @@ spec:
           env:
             - name: ENVIRONMENT
               value: "staging"
-            - name: DATABASE_URL
-              value: "postgresql://postgres:iWXyQY2j@staging-postgres.cb28yy0gmyxh.ap-south-1.rds.amazonaws.com:5432/fastapidb"
+            - name: POSTGRES_SERVER
+              value: "staging-postgres.cb28yy0gmyxh.ap-south-1.rds.amazonaws.com"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_DB
+              value: "fastapidb"
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "iWXyQY2j" # Put your real password back here!
+            - name: FIRST_SUPERUSER
+              value: "admin@example.com"
+            - name: FIRST_SUPERUSER_PASSWORD
+              value: "AdminSecurePassword123!"
           resources:
             limits:
               cpu: "500m"
