@@ -1,0 +1,48 @@
+name: 'Build and Push FastAPI Backend'
+
+on:
+  push:
+    branches:
+        - main
+    paths:
+        - 'app-repo/backend/**'
+        - '.github/workflows/backend-build.yml'
+  workflow_dispatch:
+
+permissions:
+    id-token: write
+    contents: read
+
+jobs:
+  build-and-push:
+    name: 'Build and Push Docker Image'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+    
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+            aws-region: ap-south-1
+            role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+            role-session-name: GitHubActionsBackendBuild
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: staging-fastapi-backend
+          IMAGE_TAG: ${{ github.sha }}
+        working-directory: ./app-repo/backend
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+
+          docker tag $REGISTRY/$REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:latest
+
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:latest
