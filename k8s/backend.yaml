@@ -38,6 +38,13 @@ spec:
               value: "admin@example.com"
             - name: FIRST_SUPERUSER_PASSWORD
               value: "AdminSecurePassword123!"
+
+            - name: PROJECT_NAME
+              value: "FastAPI_end-to-end Staging"
+            - name: BACKEND_CORS_ORIGINS
+              value: "http://localhost,http://localhost:80"
+            - name: SECRET_KEY
+              value: "super_secret_jwt_token_key_12345"
           resources:
             limits:
               cpu: "500m"
