@@ -25,7 +25,7 @@ spec:
             - name: ENVIRONMENT
               value: "staging"
             - name: DATABASE_URL
-              value: "staging-postgres.cb28yy0gmyxh.ap-south-1.rds.amazonaws.com:5432"
+              value: "postgresql://postgres:iWXyQY2j@staging-postgres.cb28yy0gmyxh.ap-south-1.rds.amazonaws.com:5432/fastapidb"
           resources:
             limits:
               cpu: "500m"
