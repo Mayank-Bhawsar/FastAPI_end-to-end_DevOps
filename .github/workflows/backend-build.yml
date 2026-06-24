@@ -46,3 +46,7 @@ jobs:
 
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:latest
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/backend.yml
