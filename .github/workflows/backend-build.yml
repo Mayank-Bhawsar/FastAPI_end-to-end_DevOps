@@ -47,6 +47,9 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:latest
 
+      - name: Update KubeConfig
+        run: aws eks update-kubeconfig --region ap-south-1 --name staging-fastapi-cluster
+
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/backend.yaml
