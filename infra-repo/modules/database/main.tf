@@ -29,7 +29,7 @@ resource "aws_db_instance" "postgres" {
   allocated_storage = 20
   max_allocated_storage = 100
   engine = "postgres"
-  engine_version = "16.4"
+  engine_version = "18.4"
   instance_class = "db.t4g.micro"
 
   db_name = "fastapidb"
