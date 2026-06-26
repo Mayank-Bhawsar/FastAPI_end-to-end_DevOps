@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-frontend
+  namespace: default
+  labels:
+    app: fastapi-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-frontend
+  template:
+    metadata:
+      labels:
+        app: fastapi-frontend
+    spec:
+      containers:
+        - name: fastapi-backend
+          image: 324330564368.dkr.ecr.ap-south-1.amazonaws.com/staging-react-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_API_URL
+              value: "http://a401d2c8b94b14935a931a0f360cb41d-2016912859.ap-south-1.elb.amazonaws.com"
+      imagePullSecrets:
+        - name: ecr-regcred
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-frontend-service
+  namespace: default
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: fastapi-frontend

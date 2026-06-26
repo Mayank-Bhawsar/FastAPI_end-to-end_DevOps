@@ -1,0 +1,19 @@
+grafana: 
+  adminPassword: "AdminSecurePassword123!"
+  persistence:
+    enable: false
+
+prometheus:
+  premetheusSpec:
+    storageSpec:
+      emptyDir:
+        medium: ""
+    retention: 2d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+
+alertmanager:
+  alertmanagerSpec:
+    storageSpec:
+      emptyDir:
+        medium: ""

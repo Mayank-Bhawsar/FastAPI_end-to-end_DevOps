@@ -33,7 +33,10 @@ spec:
             - name: POSTGRES_USER
               value: "postgres"
             - name: POSTGRES_PASSWORD
-              value: "iWXyQY2j" # Put your real password back here!
+              valueFrom:
+                secretKeyRef:
+                  name: rds-db-credentials
+                  key: password
             - name: FIRST_SUPERUSER
               value: "admin@example.com"
             - name: FIRST_SUPERUSER_PASSWORD
@@ -52,7 +55,8 @@ spec:
             requests:
               cpu: "250m"
               memory: "256Mi"
-
+      imagePullSecrets:
+        - name: ecr-regcred
 ---
 
 apiVersion: v1
@@ -63,7 +67,8 @@ metadata:
 spec: 
   type: LoadBalancer
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 8000
   selector:
     app: fastapi-backend
