@@ -12,6 +12,7 @@ from app.core.config import settings
 
 
 def custom_generate_unique_id(route: APIRoute) -> str:
+    tag = route.tags[0] if route.tags else "default"
     return f"{route.tags[0]}-{route.name}"
 
 
