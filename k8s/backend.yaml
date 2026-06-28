@@ -64,6 +64,8 @@ kind: Service
 metadata:
   name: fastapi-backend-service
   namespace: default
+  labels:
+    app: fastapi-backend
 spec: 
   type: LoadBalancer
   ports:

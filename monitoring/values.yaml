@@ -4,7 +4,7 @@ grafana:
     enable: false
 
 prometheus:
-  premetheusSpec:
+  prometheusSpec:
     storageSpec:
       emptyDir:
         medium: ""

@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: fastapi-backend-monitor
-  namespace: default
+  namespace: monitoring
   labels:
     release: kube-prometheus-stack
 spec:
@@ -10,8 +10,7 @@ spec:
     matchLabels:
       app: fastapi-backend
   namespaceSelector:
-    matchNames:
-      - default
+    any: true
   endpoints:
     - port: http
       path: /metrics
