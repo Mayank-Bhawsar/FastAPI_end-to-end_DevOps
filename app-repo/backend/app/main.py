@@ -6,12 +6,9 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.api.main import api_router
 from app.core.config import settings
-from fastapi import Response
-from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 
-@app.get("/metrics")
-def metrics():
-    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+
 
 
 def custom_generate_unique_id(route: APIRoute) -> str:
@@ -40,6 +37,7 @@ if settings.all_cors_origins:
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
+
 Instrumentator(
     excluded_handlers=["/metrics"],
-).instrument(app).expose(app), endpoint="/metrics", include_in_schema=False
+).instrument(app).expose(app, endpoint="/metrics", include_in_schema=False)
