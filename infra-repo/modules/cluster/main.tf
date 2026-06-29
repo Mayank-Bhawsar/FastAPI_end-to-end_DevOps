@@ -19,7 +19,7 @@ module "eks" {
   eks_managed_node_groups = {
     staging_nodes = {
         min_size = 1
-        max_size = 2
+        max_size = 1
         desired_size = 1
 
         instance_type = ["t3.micro"]
